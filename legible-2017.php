@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: ODAM fonts and colors
- * Description: Adds legible fonts and background color selector to TwentySeventeen.
- * Version: 0.0.1
+ * Plugin Name: ODAM Legible 2017
+ * Description: Adds legible fonts and background color selector to TwentySeventeen theme.
+ * Version: 1.0.0
  * Author: Simone Fioravanti
  * Requires CP: 2.5
  * Requires PHP: 7.4
@@ -30,7 +30,7 @@ function odam_font_list() {
 		'Atkinson Hyperlegible Mono',
 		'Lexend Deca',
 	);
-	$list = apply_filters( 'odam-fonts', $list );
+	$list = apply_filters( 'legible-2017-fonts', $list );
 	foreach ( $list as $font ) {
 		$retval[str_replace(' ', '+', $font)] = $font;
 	}
@@ -39,7 +39,7 @@ function odam_font_list() {
 
 function odam_customize_register( $wp_customize ) {
 	$wp_customize->add_section( 'odam_section' , array(
-		'title'       => esc_html__( 'ODAM', 'odam-fonts' ),
+		'title'       => esc_html__( 'Legible', 'odam-fonts' ),
 		'priority'    => 1000,
 		'description' => esc_html__( 'Adds legible fonts and background color selector to TwentySeventeen.', 'odam-fonts' ),
 	));
@@ -158,9 +158,6 @@ function odam_customize_global_font_size( $wp_customize ) {
 	));
 }
 add_action( 'customize_register', 'odam_customize_global_font_size' );
-
-
-
 
 function odam_custom_fonts() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
