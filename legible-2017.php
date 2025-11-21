@@ -14,17 +14,16 @@ if (!defined('ABSPATH')) {
 }
 
 const ODAM_DEFAULT_OPTIONS = array(
-	'body_font'    => 'Alegreya+Sans',
-	'title_font'   => 'Alegreya+Sans',
-	'heading_font' => 'Alegreya+Sans',
-	'menu_font'    => 'Alegreya+Sans',
+	'body_font'    => 'Atkinson+Hyperlegible',
+	'title_font'   => 'Atkinson+Hyperlegible',
+	'heading_font' => 'Atkinson+Hyperlegible',
+	'menu_font'    => 'Atkinson+Hyperlegible',
 	'bg_color'     => '#ffffff',
 	'font_size'    => '16px',
 );
 
 function odam_font_list() {
 	$list = array(
-		'Alegreya Sans',
 		'Atkinson Hyperlegible',
 		'Atkinson Hyperlegible Next',
 		'Atkinson Hyperlegible Mono',

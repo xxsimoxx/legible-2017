@@ -4,7 +4,7 @@
 The plugin is intended to make the site more accessible to people with reduced vision or dyslexia.
 
 ## Fonts
-The plugin uses 4 Google Fonts: *Alegreya Sans*, *Atkinson Hyperlegible*, *Atkinson Hyperlegible Next*, *Atkinson Hyperlegible Mono* and *Lexend Deca*.
+The plugin uses 4 Google Fonts: *Atkinson Hyperlegible*, *Atkinson Hyperlegible Next*, *Atkinson Hyperlegible Mono* and *Lexend Deca*.
 You can add your preferred fonts using a filter linke this:
 ```php
 add_filter( 'legible-2017-fonts' , function( $list ) {
