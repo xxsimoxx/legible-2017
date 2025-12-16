@@ -18,7 +18,8 @@ const ODAM_DEFAULT_OPTIONS = array(
 	'title_font'   => 'Atkinson+Hyperlegible',
 	'heading_font' => 'Atkinson+Hyperlegible',
 	'menu_font'    => 'Atkinson+Hyperlegible',
-	'bg_color'     => '#ffffff',
+	'bg_color'     => '#f7f7f3',
+	'font_color'   => '#222222',
 	'font_size'    => '16px',
 	'line_height'  => '1.2em',
 );
@@ -157,6 +158,23 @@ function odam_customize_background_color( $wp_customize ) {
 }
 add_action( 'customize_register', 'odam_customize_background_color' );
 
+function odam_customize_font_color( $wp_customize ) {
+	$wp_customize->add_setting( 'odam_theme_options[font_color]', array(
+		'type'              => 'option',
+		'capability'        => 'edit_theme_options',
+		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => ODAM_DEFAULT_OPTIONS['font_color'],
+	));
+	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'font_color', array(
+			'label'         => __('Text Color', 'odam-fonts'),
+			'description'   => __('Set the color of the text.', 'odam-fonts'),
+			'section'       => 'odam_section',
+			'settings'      => 'odam_theme_options[font_color]',
+			'priority'      => 60,
+		)));
+}
+add_action( 'customize_register', 'odam_customize_font_color' );
+
 function odam_customize_global_font_size( $wp_customize ) {
 	$wp_customize->add_setting( 'odam_theme_options[font_size]', array(
 		'type'              => 'option',
@@ -213,6 +231,9 @@ function odam_custom_fonts() {
 		}
 		if ( isset( $theme_options[ 'line_height' ] ) && $theme_options[ 'font_size' ] !== '' ) {
 			echo 'body { line-height: ' . esc_html($theme_options[ 'line_height' ]) .' }';
+		}
+		if ( isset( $theme_options[ 'font_color' ] ) && $theme_options[ 'font_color' ] !== '' ) {
+			echo 'p { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' }';
 		}
 		if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] !== '' ) {
 			echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '" } ';
