@@ -3,7 +3,7 @@
 /**
  * Plugin Name: ODAM Legible 2017
  * Description: Adds legible fonts and background color selector to TwentySeventeen theme.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Simone Fioravanti
  * Requires CP: 2.5
  * Requires PHP: 7.4
@@ -20,6 +20,7 @@ const ODAM_DEFAULT_OPTIONS = array(
 	'menu_font'    => 'Atkinson+Hyperlegible',
 	'bg_color'     => '#ffffff',
 	'font_size'    => '16px',
+	'line_height'  => '1.2em',
 );
 
 function odam_font_list() {
@@ -180,11 +181,38 @@ function odam_customize_global_font_size( $wp_customize ) {
 }
 add_action( 'customize_register', 'odam_customize_global_font_size' );
 
+function odam_customize_global_line_height( $wp_customize ) {
+	$wp_customize->add_setting( 'odam_theme_options[line_height]', array(
+		'type'              => 'option',
+		'capability'        => 'edit_theme_options',
+		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => ODAM_DEFAULT_OPTIONS['line_height'],
+	));
+	$wp_customize->add_control( 'line_height', array(
+		'label'     => esc_html__( 'Line height', 'odam-fonts' ),
+		'section'   => 'odam_section',
+		'settings'  => 'odam_theme_options[line_height]',
+		'priority'  => 30,
+		'type'      => 'select',
+		'choices'   => array(
+			'1.0em' => 'tight',
+			'1.2em' => 'normal',
+			'1.4em' => 'relaxed',
+			'1.7em' => 'large',
+			'2.0em' => 'extra',
+		),
+	));
+}
+add_action( 'customize_register', 'odam_customize_global_line_height' );
+
 function odam_custom_fonts() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
 	echo '<style>';
 		if ( isset( $theme_options[ 'font_size' ] ) && $theme_options[ 'font_size' ] !== '' ) {
 			echo 'html { font-size: ' . esc_html($theme_options[ 'font_size' ]) .' }';
+		}
+		if ( isset( $theme_options[ 'line_height' ] ) && $theme_options[ 'font_size' ] !== '' ) {
+			echo 'body { line-height: ' . esc_html($theme_options[ 'line_height' ]) .' }';
 		}
 		if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] !== '' ) {
 			echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '" } ';
