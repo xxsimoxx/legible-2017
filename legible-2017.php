@@ -21,7 +21,7 @@ const ODAM_DEFAULT_OPTIONS = array(
 	'bg_color'     => '#f7f7f3',
 	'font_color'   => '#222222',
 	'font_size'    => '16px',
-	'line_height'  => '1.2em',
+	'line_height'  => '1.7em',
 );
 
 function odam_font_list() {
@@ -154,7 +154,7 @@ function odam_customize_background_color( $wp_customize ) {
 			'section'       => 'odam_section',
 			'settings'      => 'odam_theme_options[bg_color]',
 			'priority'      => 60,
-		)));
+	)));
 }
 add_action( 'customize_register', 'odam_customize_background_color' );
 
@@ -171,7 +171,7 @@ function odam_customize_font_color( $wp_customize ) {
 			'section'       => 'odam_section',
 			'settings'      => 'odam_theme_options[font_color]',
 			'priority'      => 60,
-		)));
+	)));
 }
 add_action( 'customize_register', 'odam_customize_font_color' );
 
@@ -225,35 +225,23 @@ add_action( 'customize_register', 'odam_customize_global_line_height' );
 
 function odam_custom_fonts() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
-	echo '<style>';
-		if ( isset( $theme_options[ 'font_size' ] ) && $theme_options[ 'font_size' ] !== '' ) {
-			echo 'html { font-size: ' . esc_html($theme_options[ 'font_size' ]) .' }';
-		}
-		if ( isset( $theme_options[ 'line_height' ] ) && $theme_options[ 'font_size' ] !== '' ) {
-			echo 'body { line-height: ' . esc_html($theme_options[ 'line_height' ]) .' }';
-		}
-		if ( isset( $theme_options[ 'font_color' ] ) && $theme_options[ 'font_color' ] !== '' ) {
-			echo 'p { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' }';
-		}
-		if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] !== '' ) {
-			echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '" } ';
-			echo 'input::-webkit-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
-			echo 'input::-moz-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ). '"; }';
-			echo 'input:-ms-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
-			echo 'input::placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
-		}
-		if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] !== '' ) {
-			echo '.site-description, .entry-header h2.entry-title { font-family: "' . esc_html( urldecode( $theme_options[ 'title_font' ] ) ). '"; } ';
-		}
-		if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] !== '' ) {
-			echo 'h1, h2, h3, h4, h5, h6, p.site-title { font-family: "' . esc_html( urldecode( $theme_options[ 'heading_font' ] ) ) . '" } ';
-		}
-		if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] !== '' ) {
-			echo '.main-navigation .menu { font-family: "' . esc_html( urldecode( $theme_options[ 'menu_font' ] ) ) . '"; } ';
-		}
-		if ( isset( $theme_options[ 'bg_color' ] ) && $theme_options[ 'bg_color' ] !== '' ) {
-			echo '.site-content-contain { background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . '; } ';
-		}
+	echo '<style>'."\n";
+	// Font size.
+	echo 'html { font-size: ' . esc_html($theme_options[ 'font_size' ]) .'; }'."\n";
+	// Line Height.
+	echo 'body p { line-height: ' . esc_html($theme_options[ 'line_height' ]) .'; }'."\n";
+	// Font color.
+	echo 'p, h1, h2, h3, h4 { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' ;}'."\n";
+	// Body font.
+	echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; }.'."\n";
+	// Title font.
+	echo '.site-description, .entry-header .entry-title { font-family: "' . esc_html( urldecode( $theme_options[ 'title_font' ] ) ). '"; } '."\n";
+	// Heading font.
+	echo 'h1, h2, h3, h4, h5, h6, p.site-title { font-family: "' . esc_html( urldecode( $theme_options[ 'heading_font' ] ) ) . '" } '."\n";
+	// Menu font.
+	echo '.main-navigation .menu { font-family: "' . esc_html( urldecode( $theme_options[ 'menu_font' ] ) ) . '"; } '."\n";
+	// Background color.
+	echo '.site-content-contain { background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . '; } '."\n";
 	echo '</style>';
 }
 add_action( 'wp_head', 'odam_custom_fonts' );
