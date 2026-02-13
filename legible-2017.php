@@ -224,7 +224,7 @@ function odam_customize_global_line_height( $wp_customize ) {
 add_action( 'customize_register', 'odam_customize_global_line_height' );
 
 function odam_custom_fonts() {
-	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
+	$theme_options = odam_get_options();
 	echo '<style>'."\n";
 	// Font size.
 	echo 'html { font-size: ' . esc_html($theme_options[ 'font_size' ]) .'; }'."\n";
@@ -246,8 +246,20 @@ function odam_custom_fonts() {
 }
 add_action( 'wp_head', 'odam_custom_fonts' );
 
-function odam_load_fonts() {
+function odam_get_options() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
+	foreach ( ODAM_DEFAULT_OPTIONS as $option => $value ) {
+		if ( array_key_exists( $option, $theme_options ) ) {
+			echo "$option is set to ".$theme_options[$option];
+			continue;
+		}
+		$theme_options[$option] = $value;
+	}
+	return $theme_options;
+}
+
+function odam_load_fonts() {
+	$theme_options = odam_get_options();
 
 	$font_families = array();
 
