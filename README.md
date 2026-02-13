@@ -1,5 +1,10 @@
 # ODAM Legible 2017
-### Adds legible fonts and a background color selector to TwentySeventeen and ClassicPress TwentySeventeen.
+## Adds a menu in Customizer to make the site more legible with TwentySeventeen theme.
+- Legible fonts selector
+- Font size selector
+- Font color picker
+- Line height selector
+- Background color picker
 
 The plugin is intended to make the site more accessible to people with reduced vision or dyslexia.
 
@@ -19,3 +24,6 @@ This plugin works well with [Local Google Fonts](https://wordpress.org/plugins/l
 ## Credits
 - This plugin was originally forked from [Customize Twenty Seventeen](https://wordpress.org/plugins/customize-twenty-seventeen/) by [BOLDThemes](https://bold-themes.com/).
 - *ODAM* is the name of the site for which this plugin was designed. Thanks to my client Elisa Botton.
+
+## Screenshots
+![Customizer options](images/screenshot-1.jpg)
