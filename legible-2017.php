@@ -318,6 +318,6 @@ function odam_editor_dynamic_styles( $mceInit ) {
  *
  * @param bool $enqueue Wherether to enqueue editor style. Default false.
  */
-if ( apply_filters( 'legible_2017_editor', false ) {
+if ( apply_filters( 'legible_2017_editor', false ) ) {
 	add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
 }
