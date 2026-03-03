@@ -12,10 +12,16 @@ The plugin is intended to make the site more accessible to people with reduced v
 The plugin uses 4 Google Fonts: *Atkinson Hyperlegible*, *Atkinson Hyperlegible Next*, *Atkinson Hyperlegible Mono* and *Lexend Deca*.
 You can add your preferred fonts using a filter linke this:
 ```php
-add_filter( 'legible-2017-fonts' , function( $list ) {
+add_filter( 'legible_2017_fonts' , function( $list ) {
 	$list[] = 'Roboto';
 	return $list;
 });
+```
+
+## Editor
+Fonts and colors can also be used in the editor. This feature is disabled and can be enabled using a filter:
+```php
+add_filter( 'legible_2017_editor' , '__return_true' );
 ```
 
 ## Loading font locally

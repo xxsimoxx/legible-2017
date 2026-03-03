@@ -36,10 +36,19 @@ function odam_font_list() {
 	 * Filters the list of Google fonts to choose from.
 	 *
 	 * @since 1.0
+	 * @deprecated 1.2
 	 *
 	 * @param array $font_list List of Google fonts.
 	 */
 	$font_list = apply_filters( 'legible-2017-fonts', $font_list );
+	/**
+	 * Filters the list of Google fonts to choose from.
+	 *
+	 * @since 1.2
+	 *
+	 * @param array $font_list List of Google fonts.
+	 */
+	$font_list = apply_filters( 'legible_2017_fonts', $font_list );
 	foreach ( $font_list as $font ) {
 		$retval[str_replace(' ', '+', $font)] = $font;
 	}
@@ -302,4 +311,13 @@ function odam_editor_dynamic_styles( $mceInit ) {
 	$mceInit[ 'content_style' ] = ( isset( $mceInit[ 'content_style' ] ) ? ' ' : '' ) . $styles;
 	return $mceInit;
 }
-add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
+/**
+ * Filters the enqueuing of editor styles.
+ *
+ * @since 1.2
+ *
+ * @param bool $enqueue Wherether to enqueue editor style. Default false.
+ */
+if ( apply_filters( 'legible_2017_editor', false ) {
+	add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
+}
