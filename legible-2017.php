@@ -284,3 +284,14 @@ function odam_load_fonts() {
 }
 add_action( 'wp_enqueue_scripts', 'odam_load_fonts' );
 
+function odam_editor_dynamic_styles( $mceInit ) {
+	$theme_options = odam_get_options();
+	$styles  = 'body.mce-content-body {';
+	$styles .= 'background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . ';';
+	$styles .= 'font-family: \"' . esc_html( urldecode( $theme_options[ 'menu_font' ] ) ) . '\";';
+	$styles .= 'p, h1, h2, h3, h4 { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' ;';
+	$styles .= '}';
+	$mceInit[ 'content_style' ] = ( isset( $mceInit[ 'content_style' ] ) ? ' ' : '' ) . $styles;
+	return $mceInit;
+}
+add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
