@@ -41,7 +41,7 @@ function odam_font_list() {
 function odam_supported_theme_nag() {
 	$compatible = array(
 		'ClassicPress TwentySeventeen',
-		'TwentySeventeen'
+		'Twenty Seventeen'
 	);
 	$theme = wp_get_theme()->get('Name');
 	if( in_array( $theme, $compatible ) ) {
