@@ -25,14 +25,22 @@ const ODAM_DEFAULT_OPTIONS = array(
 );
 
 function odam_font_list() {
-	$list = array(
+	$font_list = array(
 		'Atkinson Hyperlegible',
 		'Atkinson Hyperlegible Next',
 		'Atkinson Hyperlegible Mono',
 		'Lexend Deca',
 	);
-	$list = apply_filters( 'legible-2017-fonts', $list );
-	foreach ( $list as $font ) {
+
+	/**
+	 * Filters the list of Google fonts to choose from.
+	 *
+	 * @since 1.0
+	 *
+	 * @param array $font_list List of Google fonts.
+	 */
+	$font_list = apply_filters( 'legible-2017-fonts', $font_list );
+	foreach ( $font_list as $font ) {
 		$retval[str_replace(' ', '+', $font)] = $font;
 	}
 	return $retval;
@@ -288,7 +296,7 @@ function odam_editor_dynamic_styles( $mceInit ) {
 	$theme_options = odam_get_options();
 	$styles  = 'body.mce-content-body {';
 	$styles .= 'background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . ';';
-	$styles .= 'font-family: \"' . esc_html( urldecode( $theme_options[ 'menu_font' ] ) ) . '\";';
+	$styles .= 'font-family: \"' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '\";';
 	$styles .= 'p, h1, h2, h3, h4 { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' ;';
 	$styles .= '}';
 	$mceInit[ 'content_style' ] = ( isset( $mceInit[ 'content_style' ] ) ? ' ' : '' ) . $styles;
