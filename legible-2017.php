@@ -62,9 +62,10 @@ function odam_customize_register( $wp_customize ) {
 		$description .= '<br><strong>'.$nag.'</strong>';
 	}
 	$wp_customize->add_section( 'odam_section' , array(
-		'title'       => esc_html__( 'Legible', 'odam-fonts' ),
-		'priority'    => 1000,
-		'description' => $description,
+		'title'              => esc_html__( 'Legible', 'odam-fonts' ),
+		'priority'           => 1000,
+		'description'        => $description,
+		'description_hidden' => $nag === '',
 	));
 }
 add_action( 'customize_register', 'odam_customize_register' );
