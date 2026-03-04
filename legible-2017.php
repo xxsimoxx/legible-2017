@@ -316,8 +316,9 @@ function odam_editor_dynamic_styles( $mceInit ) {
 	$styles  = 'body.mce-content-body {';
 	$styles .= 'background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . ';';
 	$styles .= 'font-family: \"' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '\";';
-	$styles .= 'p, h1, h2, h3, h4 { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' ;';
 	$styles .= '}';
+	$styles .= 'p, h1, h2, h3, h4 { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' ;}';
+	$styles .= 'h1, h2, h3, h4 { font-family: \"' . esc_html( urldecode( $theme_options[ 'heading_font' ] ) ) . '\";}';
 	$mceInit[ 'content_style' ] = ( isset( $mceInit[ 'content_style' ] ) ? $mceInit[ 'content_style' ] . ' ' : '' ) . $styles;
 	return $mceInit;
 }
