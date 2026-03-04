@@ -3,7 +3,7 @@
 /**
  * Plugin Name: ODAM Legible 2017
  * Description: Adds legible fonts and background color selector to TwentySeventeen theme.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Simone Fioravanti
  * Requires CP: 2.5
  * Requires PHP: 7.4
@@ -318,8 +318,22 @@ function odam_editor_dynamic_styles( $mceInit ) {
 	$styles .= 'font-family: \"' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '\";';
 	$styles .= 'p, h1, h2, h3, h4 { color: ' . esc_html( urldecode( $theme_options[ 'font_color' ] ) ) .' ;';
 	$styles .= '}';
-	$mceInit[ 'content_style' ] = ( isset( $mceInit[ 'content_style' ] ) ? ' ' : '' ) . $styles;
+	$mceInit[ 'content_style' ] = ( isset( $mceInit[ 'content_style' ] ) ? $mceInit[ 'content_style' ] . ' ' : '' ) . $styles;
 	return $mceInit;
 }
 add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
 
+function odam_load_admin_fonts( $hook ) {
+	if ( ! apply_filters( 'legible_2017_editor', false ) ) {
+		return;
+	}
+	$hooks = array(
+		'post.php',
+		'post-new.php',
+	);
+	if( ! in_array( $hook, $hooks ) ) {
+		return;
+	}
+	odam_load_fonts();
+}
+add_action( 'admin_enqueue_scripts', 'odam_load_admin_fonts' );
