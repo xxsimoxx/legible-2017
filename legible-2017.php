@@ -302,6 +302,16 @@ function odam_load_fonts() {
 add_action( 'wp_enqueue_scripts', 'odam_load_fonts' );
 
 function odam_editor_dynamic_styles( $mceInit ) {
+	/**
+	 * Filters the enqueuing of editor styles.
+	 *
+	 * @since 1.2
+	 *
+	 * @param bool $enqueue Wherether to enqueue editor style. Default false.
+	 */
+	if ( ! apply_filters( 'legible_2017_editor', false ) ) {
+		return $mceInit;
+	}
 	$theme_options = odam_get_options();
 	$styles  = 'body.mce-content-body {';
 	$styles .= 'background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . ';';
@@ -311,13 +321,5 @@ function odam_editor_dynamic_styles( $mceInit ) {
 	$mceInit[ 'content_style' ] = ( isset( $mceInit[ 'content_style' ] ) ? ' ' : '' ) . $styles;
 	return $mceInit;
 }
-/**
- * Filters the enqueuing of editor styles.
- *
- * @since 1.2
- *
- * @param bool $enqueue Wherether to enqueue editor style. Default false.
- */
-if ( apply_filters( 'legible_2017_editor', false ) ) {
-	add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
-}
+add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
+
