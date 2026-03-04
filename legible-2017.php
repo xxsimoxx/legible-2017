@@ -9,7 +9,7 @@
  * Requires PHP: 7.4
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
 
@@ -50,7 +50,7 @@ function odam_font_list() {
 	 */
 	$font_list = apply_filters( 'legible_2017_fonts', $font_list );
 	foreach ( $font_list as $font ) {
-		$retval[str_replace(' ', '+', $font)] = $font;
+		$retval[ str_replace(' ', '+', $font) ] = $font;
 	}
 	return $retval;
 }
@@ -58,14 +58,14 @@ function odam_font_list() {
 function odam_supported_theme_nag() {
 	$compatible = array(
 		'ClassicPress TwentySeventeen',
-		'Twenty Seventeen'
+		'Twenty Seventeen',
 	);
-	$theme = wp_get_theme()->get('Name');
-	if( in_array( $theme, $compatible ) ) {
+	$theme      = wp_get_theme()->get( 'Name' );
+	if ( in_array( $theme, $compatible, true ) ) {
 		return '';
 	}
-	// Translators: %s: theme name.
 	$message = sprintf(
+		// Translators: %s: theme name.
 		esc_html__( 'ODAM Legible 2017 does not support "%s" theme, so check that changes in this menu are working.', 'odam-fonts' ),
 		$theme
 	);
@@ -74,9 +74,9 @@ function odam_supported_theme_nag() {
 
 function odam_customize_register( $wp_customize ) {
 	$description = esc_html__( 'Adds legible fonts and background color selector to TwentySeventeen.', 'odam-fonts' );
-	$nag = odam_supported_theme_nag();
-	if ($nag !== '') {
-		$description .= '<br><strong>'.$nag.'</strong>';
+	$nag         = odam_supported_theme_nag();
+	if ( $nag !== '' ) {
+		$description .= '<br><strong>' . $nag . '</strong>';
 	}
 	$wp_customize->add_section( 'odam_section' , array(
 		'title'              => esc_html__( 'Legible', 'odam-fonts' ),
@@ -95,12 +95,12 @@ function odam_customize_body_font( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['body_font'],
 	));
 	$wp_customize->add_control( 'body_font', array(
-		'label'     => esc_html__( 'Body font', 'odam-fonts' ),
-		'section'   => 'odam_section',
-		'settings'  => 'odam_theme_options[body_font]',
-		'priority'  => 10,
-		'type'      => 'select',
-		'choices'   => odam_font_list(),
+		'label'    => esc_html__( 'Body font', 'odam-fonts' ),
+		'section'  => 'odam_section',
+		'settings' => 'odam_theme_options[body_font]',
+		'priority' => 10,
+		'type'     => 'select',
+		'choices'  => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_body_font' );
@@ -113,12 +113,12 @@ function odam_customize_title_font( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['title_font'],
 	));
 	$wp_customize->add_control( 'title_font', array(
-		'label'     => esc_html__( 'Title font', 'odam-fonts' ),
-		'section'   => 'odam_section',
-		'settings'  => 'odam_theme_options[title_font]',
-		'priority'  => 20,
-		'type'      => 'select',
-		'choices'   => odam_font_list(),
+		'label'    => esc_html__( 'Title font', 'odam-fonts' ),
+		'section'  => 'odam_section',
+		'settings' => 'odam_theme_options[title_font]',
+		'priority' => 20,
+		'type'     => 'select',
+		'choices'  => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_title_font' );
@@ -131,12 +131,12 @@ function odam_customize_heading_font( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['heading_font'],
 	));
 	$wp_customize->add_control( 'heading_font', array(
-		'label'     => esc_html__( 'Heading font', 'odam-fonts' ),
-		'section'   => 'odam_section',
-		'settings'  => 'odam_theme_options[heading_font]',
-		'priority'  => 20,
-		'type'      => 'select',
-		'choices'   => odam_font_list(),
+		'label'    => esc_html__( 'Heading font', 'odam-fonts' ),
+		'section'  => 'odam_section',
+		'settings' => 'odam_theme_options[heading_font]',
+		'priority' => 20,
+		'type'     => 'select',
+		'choices'  => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_heading_font' );
@@ -149,12 +149,12 @@ function odam_customize_heading_menu_font( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['menu_font'],
 	));
 	$wp_customize->add_control( 'menu_font', array(
-		'label'     => esc_html__( 'Menu font', 'odam-fonts' ),
-		'section'   => 'odam_section',
-		'settings'  => 'odam_theme_options[menu_font]',
-		'priority'  => 30,
-		'type'      => 'select',
-		'choices'   => odam_font_list(),
+		'label'    => esc_html__( 'Menu font', 'odam-fonts' ),
+		'section'  => 'odam_section',
+		'settings' => 'odam_theme_options[menu_font]',
+		'priority' => 30,
+		'type'     => 'select',
+		'choices'  => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_heading_menu_font' );
@@ -167,11 +167,11 @@ function odam_customize_background_color( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['bg_color'],
 	));
 	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'page_background_color', array(
-			'label'         => __('Page Background Color', 'odam-fonts'),
-			'description'   => __('Set the color of the website background.', 'odam-fonts'),
-			'section'       => 'odam_section',
-			'settings'      => 'odam_theme_options[bg_color]',
-			'priority'      => 60,
+			'label'       => __('Page Background Color', 'odam-fonts'),
+			'description' => __('Set the color of the website background.', 'odam-fonts'),
+			'section'     => 'odam_section',
+			'settings'    => 'odam_theme_options[bg_color]',
+			'priority'    => 60,
 	)));
 }
 add_action( 'customize_register', 'odam_customize_background_color' );
@@ -184,11 +184,11 @@ function odam_customize_font_color( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['font_color'],
 	));
 	$wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'font_color', array(
-			'label'         => __('Text Color', 'odam-fonts'),
-			'description'   => __('Set the color of the text.', 'odam-fonts'),
-			'section'       => 'odam_section',
-			'settings'      => 'odam_theme_options[font_color]',
-			'priority'      => 60,
+			'label'       => __('Text Color', 'odam-fonts'),
+			'description' => __('Set the color of the text.', 'odam-fonts'),
+			'section'     => 'odam_section',
+			'settings'    => 'odam_theme_options[font_color]',
+			'priority'    => 60,
 	)));
 }
 add_action( 'customize_register', 'odam_customize_font_color' );
@@ -201,12 +201,12 @@ function odam_customize_global_font_size( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['font_size'],
 	));
 	$wp_customize->add_control( 'font_size', array(
-		'label'     => esc_html__( 'Global font size', 'odam-fonts' ),
-		'section'   => 'odam_section',
-		'settings'  => 'odam_theme_options[font_size]',
-		'priority'  => 30,
-		'type'      => 'select',
-		'choices'   => array(
+		'label'    => esc_html__( 'Global font size', 'odam-fonts' ),
+		'section'  => 'odam_section',
+		'settings' => 'odam_theme_options[font_size]',
+		'priority' => 30,
+		'type'     => 'select',
+		'choices'  => array(
 			'16px' => '100%',
 			'20px' => '125%',
 			'24px' => '150%',
@@ -225,11 +225,11 @@ function odam_customize_global_line_height( $wp_customize ) {
 		'default'           => ODAM_DEFAULT_OPTIONS['line_height'],
 	));
 	$wp_customize->add_control( 'line_height', array(
-		'label'     => esc_html__( 'Line height', 'odam-fonts' ),
-		'section'   => 'odam_section',
-		'settings'  => 'odam_theme_options[line_height]',
-		'priority'  => 30,
-		'type'      => 'select',
+		'label'    => esc_html__( 'Line height', 'odam-fonts' ),
+		'section'  => 'odam_section',
+		'settings' => 'odam_theme_options[line_height]',
+		'priority' => 30,
+		'type'     => 'select',
 		'choices'   => array(
 			'1.0em' => 'tight',
 			'1.2em' => 'normal',
