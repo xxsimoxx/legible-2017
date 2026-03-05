@@ -40,6 +40,7 @@ function odam_font_list() {
 	 * @param array $font_list List of Google fonts.
 	 */
 	$font_list = apply_filters( 'legible-2017-fonts', $font_list );
+	odam_maybe_deprecated_hook( 'legible-2017-fonts', 'legible_2017_fonts', '1.2.0' );
 	/**
 	 * Filters the list of Google fonts to choose from.
 	 *
@@ -52,6 +53,25 @@ function odam_font_list() {
 		$retval[ str_replace( ' ', '+', $font ) ] = $font;
 	}
 	return $retval;
+}
+
+function odam_maybe_deprecated_hook( $hook, $new_hook, $version ) {
+	if ( ! has_filter( $hook ) ) {
+		return;
+	}
+	static $noticed = array();
+	if ( in_array( $hook, $noticed, true ) ) {
+		return;
+	}
+	$noticed[] = $hook;
+	$message = sprintf(
+		// Translators: $1%s: theme name.
+		esc_html__( '"%1$s" hook was deprecated in ODAM Legible 2017 v.%2$s. Use "%3$s" instead.', 'odam-fonts' ),
+		$hook,
+		$version,
+		$new_hook
+	);
+	wp_trigger_error( '', $message, E_USER_DEPRECATED );
 }
 
 function odam_supported_theme_nag() {
