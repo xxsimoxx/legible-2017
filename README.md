@@ -19,7 +19,7 @@ add_filter( 'legible_2017_fonts' , function( $list ) {
 ```
 
 ## Editor
-Fonts and colors can also be used in the editor. This feature is disabled and can be enabled using a filter:
+Fonts and colors can also be used in the editor. This feature can be enabled in the Customizer or using a filter:
 ```php
 add_filter( 'legible_2017_editor' , '__return_true' );
 ```

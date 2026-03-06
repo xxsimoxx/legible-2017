@@ -13,14 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 const ODAM_DEFAULT_OPTIONS = array(
-	'body_font'    => 'Atkinson+Hyperlegible',
-	'title_font'   => 'Atkinson+Hyperlegible',
-	'heading_font' => 'Atkinson+Hyperlegible',
-	'menu_font'    => 'Atkinson+Hyperlegible',
-	'bg_color'     => '#f7f7f3',
-	'font_color'   => '#222222',
-	'font_size'    => '16px',
-	'line_height'  => '1.7em',
+	'body_font'     => 'Atkinson+Hyperlegible',
+	'title_font'    => 'Atkinson+Hyperlegible',
+	'heading_font'  => 'Atkinson+Hyperlegible',
+	'menu_font'     => 'Atkinson+Hyperlegible',
+	'bg_color'      => '#f7f7f3',
+	'font_color'    => '#222222',
+	'font_size'     => '16px',
+	'line_height'   => '1.7em',
+	'enable_editor' => false,
 );
 
 function odam_font_list() {
@@ -64,7 +65,7 @@ function odam_maybe_deprecated_hook( $hook, $new_hook, $version ) {
 		return;
 	}
 	$noticed[] = $hook;
-	$message = sprintf(
+	$message   = sprintf(
 		// Translators: $1%s: theme name.
 		esc_html__( '"%1$s" hook was deprecated in ODAM Legible 2017 v.%2$s. Use "%3$s" instead.', 'odam-fonts' ),
 		$hook,
@@ -317,6 +318,33 @@ function odam_customize_global_line_height( $wp_customize ) {
 }
 add_action( 'customize_register', 'odam_customize_global_line_height' );
 
+function odam_customize_enable_editor( $wp_customize ) {
+	$wp_customize->add_setting(
+		'odam_theme_options[enable_editor]',
+		array(
+			'type'              => 'option',
+			'capability'        => 'edit_theme_options',
+			'sanitize_callback' => 'odam_sanitize_checkbox',
+			'default'           => ODAM_DEFAULT_OPTIONS['enable_editor'],
+		)
+	);
+	$wp_customize->add_control(
+		'enable_editor',
+		array(
+			'label'    => esc_html__( 'Enable styles in editor', 'odam-fonts' ),
+			'section'  => 'odam_section',
+			'settings' => 'odam_theme_options[enable_editor]',
+			'priority' => 200,
+			'type'     => 'checkbox',
+		)
+	);
+}
+add_action( 'customize_register', 'odam_customize_enable_editor' );
+
+function odam_sanitize_checkbox( $input ) {
+	return ( ( isset( $input ) && $input === true ) ? true : false );
+}
+
 function odam_custom_fonts() {
 	$theme_options = odam_get_options();
 	echo '<style>' . "\n";
@@ -378,6 +406,7 @@ function odam_load_fonts() {
 add_action( 'wp_enqueue_scripts', 'odam_load_fonts' );
 
 function odam_editor_dynamic_styles( $mceInit ) {
+	$theme_options = odam_get_options();
 	/**
 	 * Filters the enqueuing of editor styles.
 	 *
@@ -385,7 +414,7 @@ function odam_editor_dynamic_styles( $mceInit ) {
 	 *
 	 * @param bool $enqueue Wherether to enqueue editor style. Default false.
 	 */
-	if ( ! apply_filters( 'legible_2017_editor', false ) ) {
+	if ( ! apply_filters( 'legible_2017_editor', false ) && ! $theme_options['enable_editor'] ) {
 		return $mceInit;
 	}
 	$theme_options            = odam_get_options();
@@ -401,7 +430,8 @@ function odam_editor_dynamic_styles( $mceInit ) {
 add_filter( 'tiny_mce_before_init', 'odam_editor_dynamic_styles' );
 
 function odam_load_admin_fonts( $hook ) {
-	if ( ! apply_filters( 'legible_2017_editor', false ) ) {
+	$theme_options = odam_get_options();
+	if ( ! apply_filters( 'legible_2017_editor', false ) && ! $theme_options['enable_editor'] ) {
 		return;
 	}
 	$hooks = array(
