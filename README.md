@@ -1,4 +1,8 @@
 # ODAM Legible 2017
+
+[![Codacy Security Scan](https://github.com/xxsimoxx/legible-2017/actions/workflows/codacy.yml/badge.svg)](https://github.com/xxsimoxx/legible-2017/actions/workflows/codacy.yml)
+[![ClassicPress Directory Coding Standard checks.](https://github.com/xxsimoxx/legible-2017/actions/workflows/cpcs.yml/badge.svg)](https://github.com/xxsimoxx/legible-2017/actions/workflows/cpcs.yml)
+
 ## Adds a menu in Customizer to make the site more legible with TwentySeventeen theme.
 - Legible fonts selector
 - Font size selector
