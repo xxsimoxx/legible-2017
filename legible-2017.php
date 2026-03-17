@@ -66,7 +66,7 @@ function odam_maybe_deprecated_hook( $hook, $new_hook, $version ) {
 	}
 	$noticed[] = $hook;
 	$message   = sprintf(
-		// Translators: $1%s: theme name.
+		// Translators: %1$s: hook name. %2$s: plugin version. %2$s: new hook name.
 		esc_html__( '"%1$s" hook was deprecated in ODAM Legible 2017 v.%2$s. Use "%3$s" instead.', 'odam-fonts' ),
 		$hook,
 		$version,
@@ -93,10 +93,16 @@ function odam_supported_theme_nag() {
 }
 
 function odam_customize_register( $wp_customize ) {
-	$description = esc_html__( 'Adds legible fonts and background color selector to TwentySeventeen.', 'odam-fonts' );
+	$description  = '<p>' . esc_html__( 'Adds legible fonts and background color selector to TwentySeventeen.', 'odam-fonts' ) . '</p>';
+	$description .= sprintf(
+		// Translators: %1$s: background color. %2$s: text color.
+		'<p>' . esc_html__( 'Defaults: background color %1$s, text color %2$s. ', 'odam-fonts' ) . '</p>',
+		'<code>' . ODAM_DEFAULT_OPTIONS['bg_color'] . '</code>',
+		'<code>' . ODAM_DEFAULT_OPTIONS['font_color'] . '</code>'
+	);
 	$nag         = odam_supported_theme_nag();
 	if ( $nag !== '' ) {
-		$description .= '<br><strong>' . $nag . '</strong>';
+		$description .= '<p><strong>' . $nag . '</strong></p>';
 	}
 	$wp_customize->add_section(
 		'odam_section',
