@@ -12,6 +12,12 @@
 
 The plugin is intended to make the site more accessible to people with reduced vision or dyslexia.
 
+## Supported themes
+- Twenty Seventeen
+- ClassicPress TwentySeventeen
+- The ClassicPress Theme
+*Please report other themes where this plugin works.*
+
 ## Fonts
 The plugin uses 4 Google Fonts: *Atkinson Hyperlegible*, *Atkinson Hyperlegible Next*, *Atkinson Hyperlegible Mono* and *Lexend Deca*.
 You can add your preferred fonts using a filter linke this:
