@@ -79,6 +79,7 @@ function odam_supported_theme_nag() {
 	$compatible = array(
 		'ClassicPress TwentySeventeen',
 		'Twenty Seventeen',
+		'The ClassicPress Theme',
 	);
 	$theme      = wp_get_theme()->get( 'Name' );
 	if ( in_array( $theme, $compatible, true ) ) {
@@ -355,7 +356,7 @@ function odam_custom_fonts() {
 	$theme_options = odam_get_options();
 	echo '<style>' . "\n";
 	// Font size.
-	echo 'html { font-size: ' . esc_html( $theme_options['font_size'] ) . '; }' . "\n";
+	echo 'html, body { font-size: ' . esc_html( $theme_options['font_size'] ) . '; }' . "\n";
 	// Line Height.
 	echo 'body p { line-height: ' . esc_html( $theme_options['line_height'] ) . '; }' . "\n";
 	// Font color.
@@ -369,7 +370,7 @@ function odam_custom_fonts() {
 	// Menu font.
 	echo '.main-navigation .menu { font-family: "' . esc_html( urldecode( $theme_options['menu_font'] ) ) . '"; } ' . "\n";
 	// Background color.
-	echo '.site-content-contain { background-color: ' . esc_html( urldecode( $theme_options['bg_color'] ) ) . '; } ' . "\n";
+	echo '.site-content-contain, body { background-color: ' . esc_html( urldecode( $theme_options['bg_color'] ) ) . '; } ' . "\n";
 	echo '</style>';
 }
 add_action( 'wp_head', 'odam_custom_fonts' );
