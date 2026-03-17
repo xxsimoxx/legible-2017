@@ -16,6 +16,7 @@ The plugin is intended to make the site more accessible to people with reduced v
 - Twenty Seventeen
 - ClassicPress TwentySeventeen
 - The ClassicPress Theme
+
 *Please report other themes where this plugin works.*
 
 ## Fonts
